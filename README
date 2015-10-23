@@ -1,0 +1,56 @@
+Copyright 2010, 2011, 2012 Erich Peterson
+
+This file is part of PFCIM.
+ 
+PFCIM is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PFCIM is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+ 
+You should have received a copy of the GNU General Public License
+along with PFCIM.  If not, see <http://www.gnu.org/licenses/>.
+
+Contact: Erich A. Peterson erichpeterson@hotmail.com
+
+COMPILING:
+Although originally developed on Mac OS X 10.6, PFCIM should compile fine on any platform using 
+an up-to-date C++ compiler. A simple Makefile is included in this package, and will hopefully 
+compile the program for you if you are on a Linux/Unix machine, and you have Boost 1.44.0 or greater installed. You will need to change the CXX_CFLAGS variable in the file Makefile to the correct path of your boost installation. Then simply type the following in 
+the same directory as the program files (and hit enter):
+
+make
+
+RUNNING:
+On a Linux/Unix machine, the program can be run as follows:
+
+./pfcim -input <input_filename> -tau <(0, 1]> [-options <option_input>]
+
+Command Line Options:
+	-eta Eta min support: [1-Size of DB] default: 1
+	-tau Tau frequent probability threshold: (0-1] (Required)
+	-input Input file name (Required)
+	-output Output file name default: none
+	-exec Execution stats file name default: none
+	-print Print found clusters: {0 | 1} (0 = false, 1 = true) default 0
+	
+Example using all availible commandline options:
+
+./pfcim -input inputfile.txt -tau 0.9 -eta 1000 -output outputfile.txt -exec execfile.txt -print 1 
+
+DATABASE / INPUT FILE FORMAT:
+The input file should have each object on a new line, and have each item seperated by a space, and HAVING A SPACE AFTER THE LAST ITEM OF EACH ROW. NO NEWLINE AFTER THE LAST ROW.
+Each item should be of the form item:prob, where item is an integer identifying the item and prob being the probability of that item occurring between (0, 1].
+
+Example Database:
+
+1:0.8 2:0.5 3:0.24
+2:0.4 5:0.99
+1:0.13 3:0.6
+
+CITATION:
+Peiyi Tang and Erich A. Peterson. Mining Probabilistic Frequent Closed Itemsets in Uncertain Databases. In Proceedings of the 49th ACM Southeast Conference (ACMSE), Kennesaw, Georgia, USA, March 2011
